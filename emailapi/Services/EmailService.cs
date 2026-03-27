@@ -22,10 +22,7 @@ namespace emailapi.Services
             try
             {
                 string template = type ? "otp-template.html" : "restpassword.html";
-
-               var templatePath = Path.Combine(_env.WebRootPath, "Templates", template);
-           
-
+                var templatePath = Path.Combine(AppContext.BaseDirectory, "Templates", template);
                 if (!File.Exists(templatePath))
                     throw new Exception("Template not found: " + templatePath);
 
@@ -53,7 +50,7 @@ namespace emailapi.Services
                
                 await smtp.AuthenticateAsync(
                     "vk87vinay@gmail.com",
-                    "cofwcysappyuzmpn"
+                    _config["EmailSettings:Password"]
                 );
 
                 await smtp.SendAsync(email);
@@ -81,11 +78,7 @@ namespace emailapi.Services
             {
                 string template = type ? "jawlajiotp-template.html" : "jawalajirestpassword.html";
 
-                var templatePath = Path.Combine(
-         AppContext.BaseDirectory,
-         "Templates",
-         template
-     );
+                var templatePath = Path.Combine(AppContext.BaseDirectory,"Templates",template);
 
                 if (!File.Exists(templatePath))
                     throw new Exception("Template not found: " + templatePath);
@@ -113,7 +106,7 @@ namespace emailapi.Services
                 );
                 await smtp.AuthenticateAsync(
                     "vk87vinay@gmail.com",
-                    "cofwcysappyuzmpn"
+                   _config["EmailSettings:Password"]
                 );
 
                 await smtp.SendAsync(email);
