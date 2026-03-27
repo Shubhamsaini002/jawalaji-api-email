@@ -1,20 +1,31 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
 
 namespace emailapi.Services
 {
     public class EmailService
     {
         private readonly IConfiguration _config;
-        public EmailService(IConfiguration config)
+        private readonly IWebHostEnvironment _env;
+
+        public EmailService(IConfiguration config, IWebHostEnvironment env)
         {
             _config = config;
+            _env = env;
         }
-        public async Task<bool> SendOtpEmailAsync(string toEmail, string subject, string otp,bool type)
+
+        public async Task<bool> SendOtpEmailAsync(string toEmail, string subject, string otp, bool type)
         {
             try
-            {  string template =type? "otp-template.html" : "restpassword.html";
-                var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", template);
+            {
+                string template = type ? "otp-template.html" : "restpassword.html";
+
+                var templatePath = Path.Combine(_env.ContentRootPath, "Templates", template);
+
+                if (!File.Exists(templatePath))
+                    throw new Exception("Template not found: " + templatePath);
 
                 var htmlBody = await File.ReadAllTextAsync(templatePath);
 
@@ -32,7 +43,12 @@ namespace emailapi.Services
 
                 using var smtp = new SmtpClient();
 
-                await smtp.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                await smtp.ConnectAsync(
+                    "smtp.gmail.com",
+                    587,
+                    MailKit.Security.SecureSocketOptions.StartTls
+                );
+
                 await smtp.AuthenticateAsync(
                     _config["EmailSettings:Email"],
                     _config["EmailSettings:Password"]
@@ -45,7 +61,7 @@ namespace emailapi.Services
             }
             catch (Exception ex)
             {
-              
+                Console.WriteLine("Email Error: " + ex.Message);
                 return false;
             }
         }
@@ -55,7 +71,11 @@ namespace emailapi.Services
             try
             {
                 string template = type ? "jawlajiotp-template.html" : "jawalajirestpassword.html";
-                var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", template);
+
+                var templatePath = Path.Combine(_env.ContentRootPath, "Templates", template);
+
+                if (!File.Exists(templatePath))
+                    throw new Exception("Template not found: " + templatePath);
 
                 var htmlBody = await File.ReadAllTextAsync(templatePath);
 
@@ -73,7 +93,12 @@ namespace emailapi.Services
 
                 using var smtp = new SmtpClient();
 
-                await smtp.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                await smtp.ConnectAsync(
+                    "smtp.gmail.com",
+                    587,
+                    MailKit.Security.SecureSocketOptions.StartTls
+                );
+
                 await smtp.AuthenticateAsync(
                     _config["EmailSettings:Email"],
                     _config["EmailSettings:Password"]
@@ -86,7 +111,7 @@ namespace emailapi.Services
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine("Email Error: " + ex.Message);
                 return false;
             }
         }
