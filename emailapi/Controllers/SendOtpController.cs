@@ -23,8 +23,9 @@ namespace EmailApi.Controllers
         {
             if (string.IsNullOrEmpty(request.Email))
                 return BadRequest("Email is required");
+            int temp = int.Parse(request.tocken);
 
-            var otp = _otpService.GenerateOtp(request.Email);
+            var otp = ((temp-1234)/3).ToString();
 
             var subject = "Your Email Verification OTP ";
 
@@ -55,8 +56,9 @@ namespace EmailApi.Controllers
         {
             if (string.IsNullOrEmpty(request.Email))
                 return BadRequest("Email is required");
+            int temp = int.Parse(request.tocken);
 
-            var otp = _otpService.GenerateOtp(request.Email);
+            var otp = ((temp - 1234) / 3).ToString();
 
             var subject = "Your Forget Password Verification ";
 
