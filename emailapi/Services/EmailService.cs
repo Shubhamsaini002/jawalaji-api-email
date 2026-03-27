@@ -23,7 +23,8 @@ namespace emailapi.Services
             {
                 string template = type ? "otp-template.html" : "restpassword.html";
 
-                var templatePath = Path.Combine(_env.ContentRootPath, "Templates", template);
+               var templatePath = Path.Combine(_env.WebRootPath, "Templates", template);
+           
 
                 if (!File.Exists(templatePath))
                     throw new Exception("Template not found: " + templatePath);

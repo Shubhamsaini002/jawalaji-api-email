@@ -7,8 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Templates\jawalajirestpassword.html" />
+    <Content Remove="wwwroot\Templates\jawlajiotp-template.html" />
+    <Content Remove="wwwroot\Templates\otp-template.html" />
+    <Content Remove="wwwroot\Templates\restpassword.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MailKit" Version="4.15.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Templates\jawalajirestpassword.html" />
+    <None Include="wwwroot\Templates\jawlajiotp-template.html" />
+    <None Include="wwwroot\Templates\otp-template.html" />
+    <None Include="wwwroot\Templates\restpassword.html" />
   </ItemGroup>
 
 </Project>
