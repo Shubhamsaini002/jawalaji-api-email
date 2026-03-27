@@ -1,7 +1,8 @@
-﻿using MailKit.Net.Smtp;
-using MimeKit;
-using Microsoft.Extensions.Configuration;
+﻿using emailapi.Models;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using MimeKit;
 
 namespace emailapi.Services
 {
@@ -16,7 +17,7 @@ namespace emailapi.Services
             _env = env;
         }
 
-        public async Task<bool> SendOtpEmailAsync(string toEmail, string subject, string otp, bool type)
+        public async Task<SendOtpResponse> SendOtpEmailAsync(string toEmail, string subject, string otp, bool type)
         {
             try
             {
@@ -56,17 +57,24 @@ namespace emailapi.Services
 
                 await smtp.SendAsync(email);
                 await smtp.DisconnectAsync(true);
-
-                return true;
+                
+                return new SendOtpResponse
+                {
+                    Success = true,
+                    Message= "OTP sent successfully"
+                };
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Email Error: " + ex.Message);
-                return false;
+                return new SendOtpResponse
+                {
+                    Success = true,
+                    Message = ex.Message
+                };
             }
         }
 
-        public async Task<bool> SendjawalajiOtpEmailAsync(string toEmail, string subject, string otp, bool type)
+        public async Task<SendOtpResponse> SendjawalajiOtpEmailAsync(string toEmail, string subject, string otp, bool type)
         {
             try
             {
@@ -106,12 +114,19 @@ namespace emailapi.Services
                 await smtp.SendAsync(email);
                 await smtp.DisconnectAsync(true);
 
-                return true;
+                return new SendOtpResponse
+                {
+                    Success = true,
+                    Message = "OTP sent successfully"
+                };
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Email Error: " + ex.Message);
-                return false;
+                return new SendOtpResponse
+                {
+                    Success = true,
+                    Message = ex.Message
+                };
             }
         }
     }

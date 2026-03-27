@@ -28,27 +28,18 @@ namespace EmailApi.Controllers
             var otp = ((temp-1234)/3).ToString();
 
             var subject = "Your Email Verification OTP ";
-
-            var result = await _emailService.SendOtpEmailAsync(
+            SendOtpResponse result = new SendOtpResponse();
+             result = await _emailService.SendOtpEmailAsync(
                 request.Email,
                 subject,
                 otp,
                 request.type
             );
 
-            if (result)
-            {
-                return Ok(new SendOtpResponse
-                {   Success= result,
-                    Message = "OTP sent successfully"
-                });
-            }
+            
+                return Ok(result);
 
-            return BadRequest(  new SendOtpResponse
-            {
-                Success = result,
-                Message = "Error please check your mail..."
-            });
+          
         }
 
         [HttpPost("jwalajiotp")]
@@ -61,28 +52,15 @@ namespace EmailApi.Controllers
             var otp = ((temp - 1234) / 3).ToString();
 
             var subject = "Your Forget Password Verification ";
-
-            var result = await _emailService.SendjawalajiOtpEmailAsync(
+            SendOtpResponse result = new SendOtpResponse();
+             result = await _emailService.SendjawalajiOtpEmailAsync(
                 request.Email,
                 subject,
                 otp,
                 request.type
             );
 
-            if (result)
-            {
-                return Ok(new SendOtpResponse
-                {
-                    Success = result,
-                    Message = "OTP sent successfully"
-                });
-            }
-
-            return BadRequest(new SendOtpResponse
-            {
-                Success = result,
-                Message = "Error please check your mail..."
-            });
+            return Ok(result);
         }
     }
 }
