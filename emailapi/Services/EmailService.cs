@@ -42,16 +42,16 @@ namespace emailapi.Services
                 }.ToMessageBody();
 
                 using var smtp = new SmtpClient();
-
+                smtp.CheckCertificateRevocation = false;
                 await smtp.ConnectAsync(
                     "smtp.gmail.com",
                     587,
                     MailKit.Security.SecureSocketOptions.StartTls
                 );
-
+               
                 await smtp.AuthenticateAsync(
                     "vk87vinay@gmail.com",
-                    "cofw cysa ppyu zmpn"
+                    "cofwcysappyuzmpn"
                 );
 
                 await smtp.SendAsync(email);
@@ -92,16 +92,15 @@ namespace emailapi.Services
                 }.ToMessageBody();
 
                 using var smtp = new SmtpClient();
-
+                smtp.CheckCertificateRevocation = false;
                 await smtp.ConnectAsync(
                     "smtp.gmail.com",
                     587,
                     MailKit.Security.SecureSocketOptions.StartTls
                 );
-
                 await smtp.AuthenticateAsync(
                     "vk87vinay@gmail.com",
-                    "cofw cysa ppyu zmpn"
+                    "cofwcysappyuzmpn"
                 );
 
                 await smtp.SendAsync(email);
