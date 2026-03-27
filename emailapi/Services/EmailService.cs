@@ -31,7 +31,7 @@ namespace emailapi.Services
                 htmlBody = htmlBody.Replace("{{OTP}}", otp);
 
                 var email = new MimeMessage();
-                email.From.Add(new MailboxAddress("Your App", "vk87vinay@gmail.com"));
+                email.From.Add(new MailboxAddress("Top Earning App", _config["EmailSettings:Email"]));
                 email.To.Add(MailboxAddress.Parse(toEmail));
                 email.Subject = subject;
 
@@ -49,7 +49,7 @@ namespace emailapi.Services
                 );
                
                 await smtp.AuthenticateAsync(
-                    "vk87vinay@gmail.com",
+                    _config["EmailSettings:Email"],
                     _config["EmailSettings:Password"]
                 );
 
@@ -88,7 +88,7 @@ namespace emailapi.Services
                 htmlBody = htmlBody.Replace("{{OTP}}", otp);
 
                 var email = new MimeMessage();
-                email.From.Add(new MailboxAddress("Your App", "vk87vinay@gmail.com"));
+                email.From.Add(new MailboxAddress("Jawala ji Tech Solutions", _config["EmailSettings:Email"]));
                 email.To.Add(MailboxAddress.Parse(toEmail));
                 email.Subject = subject;
 
@@ -105,7 +105,7 @@ namespace emailapi.Services
                     MailKit.Security.SecureSocketOptions.StartTls
                 );
                 await smtp.AuthenticateAsync(
-                    "vk87vinay@gmail.com",
+                   _config["EmailSettings:Email"],
                    _config["EmailSettings:Password"]
                 );
 
