@@ -81,8 +81,11 @@ namespace emailapi.Services
             {
                 string template = type ? "jawlajiotp-template.html" : "jawalajirestpassword.html";
 
-                var root = _env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot");
-                var templatePath = Path.Combine(root, "Templates", template);
+                var templatePath = Path.Combine(
+         AppContext.BaseDirectory,
+         "Templates",
+         template
+     );
 
                 if (!File.Exists(templatePath))
                     throw new Exception("Template not found: " + templatePath);
