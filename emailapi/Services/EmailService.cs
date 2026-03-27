@@ -69,7 +69,7 @@ namespace emailapi.Services
             {
                 return new SendOtpResponse
                 {
-                    Success = true,
+                    Success = false,
                     Message = ex.Message
                 };
             }
@@ -81,7 +81,8 @@ namespace emailapi.Services
             {
                 string template = type ? "jawlajiotp-template.html" : "jawalajirestpassword.html";
 
-                var templatePath = Path.Combine(_env.ContentRootPath, "Templates", template);
+                var root = _env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot");
+                var templatePath = Path.Combine(root, "Templates", template);
 
                 if (!File.Exists(templatePath))
                     throw new Exception("Template not found: " + templatePath);
@@ -125,7 +126,7 @@ namespace emailapi.Services
             {
                 return new SendOtpResponse
                 {
-                    Success = true,
+                    Success = false,
                     Message = ex.Message
                 };
             }
