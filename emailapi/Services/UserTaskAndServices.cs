@@ -72,11 +72,27 @@ namespace emailapi.Services
             }
         }
 
-        public async Task<ResponseVM> CreateTask(SubTasks data)
+        public async Task<ResponseVM> CreateTask(CreateTaskVM data)
         {
             try
-            {  
-                await _context.SubTasks.AddAsync(data);
+            {
+                SubTasks req = new SubTasks()
+                {
+                    ServiceId=data.ServiceId,
+                    UserId=data.UserId,
+                    Amount=data.Amount,
+                    Title=data.Title,
+                    Description=data.Description,
+                    Status=data.Status,
+                    Progress=data.Progress,
+                    StartDate=data.StartDate,
+                    EndDate= data.EndDate,
+                    Modifiedby="",
+                    ModifiedDate= DateTime.UtcNow,
+
+
+                };
+                await _context.SubTasks.AddAsync(req);
                 await _context.SaveChangesAsync();
                 var result = await _context.SubTasks.Where(x => x.ServiceId == data.ServiceId).ToListAsync();
                 return new ResponseVM()

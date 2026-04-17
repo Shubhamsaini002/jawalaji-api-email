@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace studyapp.Controllers
 {
-    [Route("api/admin/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AdminController : Controller
     {
@@ -32,5 +32,38 @@ namespace studyapp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+
+        [HttpGet("AdminLogin")]
+        public async Task<IActionResult> AdminLogin(string email ,string password)
+        {
+            try
+            {
+                var result = await _adminService.checkLogin(email,password);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("getUsers")]
+        public async Task<IActionResult> getUsers()
+        {
+            try
+            {
+                var result = await _adminService.getUsers();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
+
+
+
 }

@@ -1,4 +1,5 @@
-﻿using emailapi.Models;
+﻿using emailapi.Data;
+using emailapi.Models;
 using EmailApi.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -55,6 +56,41 @@ namespace emailapi.Business.Services
                     data = new { rowsAffected = affected }
                 };
             }
+        }
+
+        public async Task<ResponseVM> checkLogin(string email ,string password)
+        {
+            var existingUser = await _context.AdminLogin.FirstOrDefaultAsync(x => x.Email == email && x.Password == password );
+            if (existingUser == null)
+            {
+                return new ResponseVM()
+                {
+                    status = 0,
+                    Message = "Please Check Your Email Or Password!",
+                };
+            }
+
+            return new ResponseVM()
+            {
+                status = 1,
+                Message = "Verified successfully",
+                data = new UserDetailsVM()
+                {
+                    Name = existingUser.Name,
+                    Email = existingUser.Email,
+                }
+            };
+        }
+
+        public async Task<ResponseVM> getUsers()
+        {
+            var data = await _context.Users.ToListAsync();
+
+            return new ResponseVM()
+            {
+                status = 1,
+                data = data
+            };
         }
     }
 }

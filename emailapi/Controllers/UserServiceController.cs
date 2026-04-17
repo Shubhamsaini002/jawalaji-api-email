@@ -43,7 +43,7 @@ namespace emailapi.Controllers
         }
 
         [HttpPost("CreateTask")]
-        public async Task<IActionResult> CreateTask(SubTasks data)
+        public async Task<IActionResult> CreateTask(CreateTaskVM data)
         {
             try
             {

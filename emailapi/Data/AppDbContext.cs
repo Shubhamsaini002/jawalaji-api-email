@@ -13,6 +13,8 @@ namespace EmailApi.Data
         public DbSet<UserServices> UserServices { get; set; }
         public DbSet<SubTasks> SubTasks { get; set; }
 
+        public DbSet<AdminLogin> AdminLogin { get; set; }
+
 
     }
 }
