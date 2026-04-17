@@ -23,7 +23,7 @@ namespace EmailApi.Controllers
         {
             if (string.IsNullOrEmpty(request.Email))
                 return BadRequest("Email is required");
-            int temp = int.Parse(request.tocken);
+            int temp = int.Parse("");
 
             var otp = ((temp-1234)/3).ToString();
 
@@ -47,7 +47,7 @@ namespace EmailApi.Controllers
         {
             if (string.IsNullOrEmpty(request.Email))
                 return BadRequest("Email is required");
-            int temp = int.Parse(request.tocken);
+            int temp = int.Parse("");
 
             var otp = ((temp - 1234) / 3).ToString();
 

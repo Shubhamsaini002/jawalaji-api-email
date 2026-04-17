@@ -1,7 +1,5 @@
 ﻿using emailapi.Models;
 using MailKit.Net.Smtp;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using MimeKit;
 
 namespace emailapi.Services
