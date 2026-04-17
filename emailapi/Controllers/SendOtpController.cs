@@ -19,11 +19,11 @@ namespace EmailApi.Controllers
         }
 
         [HttpPost("topearnerotp")]
-        public async Task<IActionResult> SendOtp([FromBody] SendOtpRequest request)
+        public async Task<IActionResult> SendOtp([FromBody] SendOtpRequestVM request)
         {
             if (string.IsNullOrEmpty(request.Email))
                 return BadRequest("Email is required");
-            int temp = int.Parse("");
+            int temp = int.Parse(request.tocken);
 
             var otp = ((temp-1234)/3).ToString();
 
