@@ -29,7 +29,7 @@ namespace emailapi.Services
                 htmlBody = htmlBody.Replace("{{OTP}}", otp);
 
                 var email = new MimeMessage();
-                email.From.Add(new MailboxAddress("Top Earning App", _config["EmailSettings:Email"]));
+                email.From.Add(new MailboxAddress("GameZen", _config["EmailSettings:Email"]));
                 email.To.Add(MailboxAddress.Parse(toEmail));
                 email.Subject = subject;
 
